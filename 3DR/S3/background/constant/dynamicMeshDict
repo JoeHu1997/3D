@@ -1,0 +1,111 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      motionProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+motionSolverLibs    ("libsixDoFRigidBodyMotionCoupled.so");
+
+dynamicFvMesh       dynamicOversetFvMesh;
+
+dynamicOversetFvMeshCoeffs
+{
+}
+
+motionSolver        sixDoFRigidBodyMotion;
+
+sixDoFRigidBodyMotionCoeffs
+{
+    patches         (floatingObject);
+    innerDistance   100;	
+    outerDistance   101;	
+
+    centreOfMass    (2.725 0 0.5515);
+		
+
+    // Cylinder mass
+    mass            18.7;	
+	
+    //moment of inertia about the centre of mass
+
+    momentOfInertia (0.852	0.2258	0.9895);
+	
+    report          on;
+	reportToFile    on;
+    accelerationRelaxation 	0.95;
+    accelerationDamping 	1.00;
+	tightlyType		2;
+	tightlyMoment	false;
+
+
+    solver
+    {
+        type Newmark;
+    }
+	
+	// Degree = 60
+    restraints
+	
+
+    {
+		
+			cable1
+			{
+                sixDoFRigidBodyMotionRestraint	catenary;
+				anchor 							(2.3 -0.34 0);
+				refAttachmentPt					(2.573	-0.34	0.483);
+				restLength						0.58;
+				Cable_no						1;
+			}
+			cable2
+			{
+				sixDoFRigidBodyMotionRestraint	catenary;
+				anchor 							(3.15 -0.34 0);
+				refAttachmentPt					(2.877 -0.34 0.483);
+				restLength						0.58;
+				Cable_no						2;
+			}
+			cable3
+			{
+				sixDoFRigidBodyMotionRestraint	catenary;
+				anchor 							(2.3 0.34 0);
+				refAttachmentPt					(2.573 0.34	0.483);
+				restLength						0.58;
+				Cable_no						3;				
+			}
+			cable4
+			{
+				sixDoFRigidBodyMotionRestraint	catenary;
+				anchor 							(3.15 0.34 0);
+				refAttachmentPt					(2.877 0.34	0.483);
+				restLength						0.58;
+				Cable_no						4;
+			}
+		
+		
+		
+	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}
+
+
+// ************************************************************************* //

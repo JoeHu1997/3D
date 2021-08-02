@@ -1,0 +1,19 @@
+# rankfile 
+
+rank 000 = slaver01 slot = 0
+rank 001 = slaver01 slot = 1
+rank 002 = slaver01 slot = 2
+rank 003 = slaver01 slot = 3
+
+
+rank 004 = slaver02 slot = 0
+rank 005 = slaver02 slot = 1
+rank 006 = slaver02 slot = 2
+rank 007 = slaver02 slot = 3
+
+
+rank 008 = slaver03 slot = 0
+rank 009 = slaver03 slot = 1
+rank 010 = slaver03 slot = 2
+rank 011 = slaver03 slot = 3
+
