@@ -1,0 +1,175 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  plus                                  |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    "alpha.water.*"
+    {
+        nAlphaCorr      2;
+        nAlphaSubCycles 1;
+        cAlpha          1;
+        icAlpha         0;
+
+        MULESCorr       yes;
+        nLimiterIter    5;
+        alphaApplyPrevCorr  no;
+
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-8;
+        relTol          0;
+    }
+
+    "cellDisplacement.*"
+    {
+        solver          PCG;
+        preconditioner  DIC;
+
+        tolerance       1e-06;
+        relTol          0;
+        maxIter         100;
+    }
+
+    "pcorr.*"
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-9;
+        relTol          0;
+    }
+
+    p_rgh
+    {
+        solver petsc;
+
+        petsc
+        {
+            options
+            {
+                ksp_type  cg;
+                ksp_cg_single_reduction  true;
+                ksp_norm_type none;
+
+// With or without hypre
+#if 0
+                pc_type  hypre;
+                pc_hypre_type boomeramg;
+                pc_hypre_boomeramg_max_iter "1";
+                pc_hypre_boomeramg_strong_threshold "0.25";
+                pc_hypre_boomeramg_grid_sweeps_up "1";
+                pc_hypre_boomeramg_grid_sweeps_down "1";
+                pc_hypre_boomeramg_agg_nl "1";
+                pc_hypre_boomeramg_agg_num_paths "1";
+                pc_hypre_boomeramg_max_levels "25";
+                pc_hypre_boomeramg_coarsen_type HMIS;
+                pc_hypre_boomeramg_interp_type ext+i;
+                pc_hypre_boomeramg_P_max "1";
+                pc_hypre_boomeramg_truncfactor "0.3";
+#else
+                pc_type bjacobi;
+                sub_pc_type ilu;
+#endif
+            }
+
+            caching
+            {
+                matrix
+                {
+                    update always;
+                }
+
+                preconditioner
+                {
+                    update always;
+                }
+            }
+        }
+
+        tolerance       1e-06;
+        relTol          0.1;
+    }
+
+    p_rghFinal
+    {
+        $p_rgh;
+        relTol          0;
+    }
+
+    "(U|k|omega|epsilon).*"
+    {
+        solver petsc;
+
+        petsc
+        {
+            options
+            {
+                ksp_type bicg;
+                pc_type bjacobi;
+                sub_pc_type ilu;
+            }
+
+            caching
+            {
+                matrix
+                {
+                    update always;
+                }
+
+                preconditioner
+                {
+                    update always;
+                }
+            }
+        }
+
+        tolerance       1e-05;
+        relTol          0.1;
+    }
+}
+
+PIMPLE
+{
+    momentumPredictor   no;
+    nOuterCorrectors    2;
+    nCorrectors         2;
+    nNonOrthogonalCorrectors 0;
+
+    ddtCorr                    yes;
+    correctPhi                 no;
+
+    moveMeshOuterCorrectors no;
+    turbOnFinalIterOnly no;
+	pRefCell    0;
+    pRefValue    0;
+}
+
+relaxationFactors
+{
+    fields
+    {
+    }
+    equations
+    {
+            ".*" 1;
+    }
+}
+
+cache
+{
+        grad(U);
+}
+
+// ************************************************************************* //

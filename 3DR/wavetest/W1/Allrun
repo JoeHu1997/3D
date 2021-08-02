@@ -1,0 +1,16 @@
+#!/bin/sh
+cd ${0%/*} || exit 1                        # Run from this directory
+. $WM_PROJECT_DIR/bin/tools/RunFunctions    # Tutorial run functions
+
+./Allrun.pre
+#(cd background && runApplication $(getApplication))
+
+(cd background && mpirun -np 4 overInterDyMFoam -parallel > log.overInterDyMFoam )
+cd background
+runApplication reconstructPar
+echo Reconstruct case... 
+reconstructPar > reconstructPar.log 
+echo Reconstruct complete. 
+rm -rf pro*    
+
+#------------------------------------------------------------------------------
