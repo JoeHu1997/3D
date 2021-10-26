@@ -100,7 +100,7 @@ castellatedMeshControls
     {
 	floatingObject
 	{
-		level (1 2);
+		level (0 0);
 	}
     }
 
@@ -136,7 +136,7 @@ castellatedMeshControls
     // section reachable from the locationInMesh is kept.
     // NOTE: This point should never be on a face, always inside a cell, even
     // after refinement.
-    locationInMesh (2.43 -0.6 0.43);
+    locationInMesh (2.43 -0.345 0.43);
 
     // Whether any faceZones (as specified in the refinementSurfaces)
     // are only on the boundary of corresponding cellZones or also allow

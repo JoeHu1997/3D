@@ -19,8 +19,10 @@
 #decomposePar > decomposePar.log 
 
 cd background  
-echo Running... 
-mpirun -np 36 --hostfile machines --rankfile rankfile overInterDyMFoam -parallel > log.overInterDyMFoam
+echo Remech
+#mpirun -np 8 --hostfile machines --rankfile rankfile  renumberMesh -parallel -overwrite > log.remech 
+echo Running...
+mpirun -np 8 --hostfile machines --rankfile rankfile overInterDyMFoam -parallel > log.overInterDyMFoam
 
 
 echo Simulation complete. 
