@@ -1,0 +1,11 @@
+lumpedM         =   zeros(node_num*3,node_num*3);
+C               =   zeros(node_num*3,node_num*3);
+tU              =   zeros(node_num*3,1); 
+tV              =   zeros(node_num*3,1); 
+tA              =   zeros(node_num*3,1);   
+tF              =   zeros(node_num*3,1);
+tR              =   zeros(node_num*3,1);
+tN              =   zeros(node_num,1);
+Fw              =   zeros(node_num*3,1); 
+Fex             =   zeros(node_num*3,1);
+bF              =   zeros(node_num*3,1);

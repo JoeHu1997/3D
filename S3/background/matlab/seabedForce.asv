@@ -1,0 +1,19 @@
+function bF = seabedForce(bF,tU,ele_num,w,L,Fw)
+    EA = Fw(6)/3
+    %N = 1;
+    %B0 = fixed_point(3)- N *D;
+    
+
+for no_ele=2:ele_num
+    if tU((no_ele*3)) < -3
+        bF((no_ele*3),1)= (bF((no_ele*3),1)+(-3 * EA )) ;
+    elseif tU((no_ele*3))  >-3 && tU((no_ele*3))  < 0
+        bF((no_ele*3),1)= (bF((no_ele*3),1)+tU(no_ele*3) * EA  ;
+    else
+        bF((no_ele*3),1) = 0;
+        
+    end
+end
+
+
+
