@@ -20,7 +20,7 @@
 
 cd background  
 echo Running... 
-mpirun -np 10  --hostfile machines  --mca btl_tcp_if_include enp0s31f6 --rankfile rankfile overInterDyMFoam -parallel > log.overInterDyMFoam
+mpirun -np 10  --hostfile machines  --rankfile rankfile overInterDyMFoam -parallel > log.overInterDyMFoam
 
 
 echo Simulation complete. 

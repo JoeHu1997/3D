@@ -53,7 +53,7 @@ sixDoFRigidBodyMotionCoeffs
 	// Degree = 60
     restraints
     {
-		cable11
+		cable1
 		{
 		sixDoFRigidBodyMotionRestraint        catenary;
 		anchor                                (2.2941	-0.34	0);
