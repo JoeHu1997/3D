@@ -1,0 +1,31 @@
+#!/bin/bash 
+./Allrun.pre  
+#mkdir 0 
+  
+#echo blockMesh meshing... 
+#blockMesh > blockMesh.log 
+
+#echo snappyHexMesh...
+#snappyHexMesh -overwrite	>	snappyHexMesh.log
+  
+#echo Preparing 0 folder... 
+#rm -fr 0 
+#cp -r 0.orig 0 
+  
+#echo Setting the fields... 
+#setFields > setFields.log 
+  
+#echo Decomposing case... 
+#decomposePar > decomposePar.log 
+
+cd background  
+echo Running... 
+mpirun -np 10 --hostfile machines --rankfile rankfile overInterDyMFoam -parallel > log.overInterDyMFoam
+
+
+echo Simulation complete. 
+  
+echo Reconstruct case... 
+reconstructPar > log.reconstructPar 
+echo Reconstruct complete. 
+#rm -rf pro* 
