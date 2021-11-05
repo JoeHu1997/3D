@@ -9,25 +9,62 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      setFieldsDict;
+    class       volScalarField;
+    location    "0";
+    object      alpha.water;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
-(
-    volScalarFieldValue alpha.water 0
-);
+dimensions      [0 0 0 0 0 0 0];
 
-regions
-(
-    boxToCell
+internalField   uniform 0;
+
+boundaryField
+{
+
+    inlet
     {
-        box ( -100 -100 -100 ) ( 100 100 2.5 );
-        fieldValues ( volScalarFieldValue alpha.water 1 );
+        type            waveAlpha;
+        value           uniform 0;
+    }
+	
+    outlet
+    {
+        type            waveAlpha;
+        value           uniform 0;
     }
 
-    
-);
+    ground
+    {
+        type            zeroGradient;
+    }
+	
+    sides
+    {
+        type            empty;
+    }
+	
+    atmosphere
+    {
+        type            inletOutlet;
+        inletValue      uniform 0;
+        value           uniform 0;
+    }
+    floatingObject
+    {
+        type            zeroGradient;
+    }
+	
+	oversetPatch
+    {
+        type            overset;
+    }
+	
+	sides1
+    {
+	type		overset;
+    }	
+}
+
 
 // ************************************************************************* //

@@ -52,18 +52,9 @@ sixDoFRigidBodyMotionCoeffs
     {
         type Newmark;
     }
-
-    constraints
+	restraints
     {
-        AxisConstraint
-        {
-            sixDoFRigidBodyMotionConstraint axis;
-            axis (0 1 0);
-        }
-    }
-    restraints
-	{
-			cable1
+		cable1
 		{
 		sixDoFRigidBodyMotionRestraint        catenary;
 		anchor                                (2.2941	-0.34	0);
@@ -98,7 +89,10 @@ sixDoFRigidBodyMotionCoeffs
 		restLength						0.557;
 		Cable_no						4;
 		}
-	}
+	} 
+
+    
+    
 }
 
 

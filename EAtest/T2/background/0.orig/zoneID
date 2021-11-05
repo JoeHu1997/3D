@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v1812                                 |
+|  \\    /   O peration     | Version:  plus                                  |
 |   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -9,47 +9,46 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "system";
-    object      setFieldsDict;
+    class       volScalarField;
+    object      zoneID;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
-(
-    volScalarFieldValue alpha.water 0
-);
+dimensions      [0 0 0 0 0 0 0];
 
-regions
-(
-    boxToCell
+internalField   uniform 0;
+
+boundaryField
+{
+
+    inlet
     {
-        box (-100 -100 -100) (100 100 0.62);
-        fieldValues ( volScalarFieldValue alpha.water 1 );
+        type            zeroGradient;
     }
-	
-	cellToCell
+    outlet
     {
-        set c0;
-
-        fieldValues
-        (
-            volScalarFieldValue zoneID 0
-        );
+        type            zeroGradient;
     }
-    cellToCell
+    ground
     {
-        set c1;
-
-        fieldValues
-        (
-            volScalarFieldValue zoneID 1
-        );
+        type            zeroGradient;
     }
-
-
-
-);
-
+    atmosphere
+    {
+        type            zeroGradient;
+    }
+    floatingObject
+    {
+        type            zeroGradient;
+    }
+	oversetPatch
+    {
+        type            overset;
+    }
+	sides1
+    {
+		type			overset;
+    }
+}
 
 // ************************************************************************* //

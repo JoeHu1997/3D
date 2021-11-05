@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v1812                                 |
+|  \\    /   O peration     | Version:  plus                                  |
 |   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -10,46 +10,28 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      setFieldsDict;
+    location    "constant";
+    object      turbulenceProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
-(
-    volScalarFieldValue alpha.water 0
-);
+simulationType  laminar;
 
-regions
-(
-    boxToCell
-    {
-        box (-100 -100 -100) (100 100 0.62);
-        fieldValues ( volScalarFieldValue alpha.water 1 );
-    }
+//RAS
+//{
+//    RASModel        kEpsilon;//kEpsilonStab;
+
+//    turbulence      on;
+
+//    printCoeffs     on;
+//}	
 	
-	cellToCell
-    {
-        set c0;
+//	kEpsilonStabCoeffs
+//	{
+//		lambda2 0.0;
+//	}
+	
 
-        fieldValues
-        (
-            volScalarFieldValue zoneID 0
-        );
-    }
-    cellToCell
-    {
-        set c1;
-
-        fieldValues
-        (
-            volScalarFieldValue zoneID 1
-        );
-    }
-
-
-
-);
 
 
 // ************************************************************************* //
