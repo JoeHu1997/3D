@@ -1,0 +1,22 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Set application name
+application=`getApplication`
+
+runApplication blockMesh
+runApplication snappyHexMesh -overwrite
+cp -r 0.orig 0 > /dev/null 2>&1
+runApplication setFields
+runApplication decomposePar
+mpirun -np 4 interDyMFoam -parallel > log.interDyMFoam 
+runApplication reconstructPar
+echo Reconstruct case... 
+reconstructPar > reconstructPar.log 
+echo Reconstruct complete. 
+rm -rf pro*    
+
+#------------------------------------------------------------------------------
