@@ -29,11 +29,11 @@ end
 %%
 % Calculate the external force actig on cable
 cd (root)
-%cd ([root '/matlab'])
-%readField    
+cd ([root '/matlab'])
+readField    
 % Caculate force from fluid field
 cd ([root '/matlab'])
-%CalculateExternalForce
+CalculateExternalForce
 
 
 %% Newton-Raphson iteration

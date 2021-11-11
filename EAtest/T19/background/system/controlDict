@@ -56,6 +56,50 @@ maxAlphaCo      0.3;
 maxDeltaT       0.001;
 
 
+functions
+{
+	line1
+	{
+		type	probesCable;	
+		libs	("libsampling.so");
+		fields	(U);
+		probeLocations
+		(
+			#include "pointLocation1.txt"
+			
+		);
+	}
+	line2
+	{
+		type	probesCable;	
+		libs	("libsampling.so");
+		fields	(U);
+		probeLocations
+		(
+			#include "pointLocation2.txt"
+		);
+	}
+	line3
+	{
+		type	probesCable;	
+		libs	("libsampling.so");
+		fields	(U);
+		probeLocations
+		(
+			#include "pointLocation3.txt"
+		);
+	}
+	line4
+	{
+		type	probesCable;	
+		libs	("libsampling.so");
+		fields	(U);
+		probeLocations
+		(
+			#include "pointLocation4.txt"
+		);
+	}
+}
 
 
 // ************************************************************************* //

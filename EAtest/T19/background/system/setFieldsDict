@@ -11,51 +11,45 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "system";
-    object      controlDict;
+    object      setFieldsDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-libs            ("liboverset.so");
+defaultFieldValues
+(
+    volScalarFieldValue alpha.water 0
+);
 
-application     overInterDyMFoam ;
+regions
+(
+    boxToCell
+    {
+        box (-100 -100 -100) (100 100 0.65);
+        fieldValues ( volScalarFieldValue alpha.water 1 );
+    }
+	
+	cellToCell
+    {
+        set c0;
 
-startFrom       latestTime;
+        fieldValues
+        (
+            volScalarFieldValue zoneID 0
+        );
+    }
+    cellToCell
+    {
+        set c1;
 
-startTime       0.0;
-
-stopAt          endTime;
-
-endTime         12.0;
-
-deltaT          0.001;
-
-writeControl    adjustableRunTime;
-
-writeInterval   0.1;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable yes;
-
-adjustTimeStep  yes;
-
-maxCo           0.3;
-
-maxAlphaCo      0.3;
-
-maxDeltaT       0.001;
+        fieldValues
+        (
+            volScalarFieldValue zoneID 1
+        );
+    }
 
 
+
+);
 
 
 // ************************************************************************* //

@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v1812                                 |
+|  \\    /   O peration     | Version:  plus                                  |
 |   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -10,52 +10,51 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-libs            ("liboverset.so");
+ddtSchemes
+{
+    default         Euler;
+}
 
-application     overInterDyMFoam ;
+gradSchemes
+{
+    default         Gauss linear;
+}
 
-startFrom       latestTime;
+divSchemes
+{
+    div(rhoPhi,U)  Gauss vanLeerV;
+    div(phi,alpha)  Gauss vanLeer;
+    div(phirb,alpha) Gauss linear;
+    div(phi,k)      Gauss upwind;
+    div(phi,epsilon) Gauss upwind;
+    div((muEff*dev(T(grad(U))))) Gauss linear;
+}
 
-startTime       0.0;
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
 
-stopAt          endTime;
+interpolationSchemes
+{
+    default         linear;
+}
 
-endTime         12.0;
+snGradSchemes
+{
+    default         corrected;
+}
 
-deltaT          0.001;
-
-writeControl    adjustableRunTime;
-
-writeInterval   0.1;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable yes;
-
-adjustTimeStep  yes;
-
-maxCo           0.3;
-
-maxAlphaCo      0.3;
-
-maxDeltaT       0.001;
-
-
-
+fluxRequired
+{
+    default         no;
+    p_rgh;
+    pcorr;
+    alpha.water;
+}
 
 // ************************************************************************* //
